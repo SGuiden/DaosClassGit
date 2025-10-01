@@ -1,4 +1,4 @@
-package daos.entities.Employees;
+package daos.entities;
 
 import java.util.Objects;
 

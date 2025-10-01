@@ -1,6 +1,6 @@
 package daos.daos;
 
-import daos.entities.Orders.Order;
+import daos.entities.Order;
 
 import java.util.List;
 

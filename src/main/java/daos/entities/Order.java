@@ -1,4 +1,4 @@
-package daos.entities.Orders;
+package daos.entities;
 
 public class Order {
 
