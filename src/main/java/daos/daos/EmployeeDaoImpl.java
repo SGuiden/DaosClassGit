@@ -2,23 +2,81 @@ package daos.daos;
 
 import daos.entities.Employee;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDaoImpl implements EmployeeDao{
-    /**
-     * @param employeeNumber
-     * @param lastName
-     * @param firstName
-     * @param extension
-     * @param email
-     * @param officeCode
-     * @param reportsTo
-     * @param jobTitle
-     * @return
-     */
+public class EmployeeDaoImpl extends Dao implements EmployeeDao{
+
+    // Constructor
+    public EmployeeDaoImpl(String databaseName) {
+        super(databaseName);
+    }
+    // Override Methods
     @Override
     public boolean addEmployee(int employeeNumber, String lastName, String firstName, String extension, String email, String officeCode, int reportsTo, String jobTitle) {
         return false;
+    }
+    /**
+     * @param
+     * @return
+     */
+    @Override
+    public List<Employee> getAllEmployees(){
+        // Variables
+        List<Employee> employees = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try{
+            // Get connect to DB
+            con = getConnection();
+            //Prepare Query & Execute Query
+            String query = "SELECT * FROM employees";
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()){
+                /*int employeeNumber, String lastName, String firstName, String extension,
+                    String email, String officeCode, int reportsTo, String jobTitle)
+                 */
+                int employeeNumber = rs.getInt("employeeNumber");
+                String lastName = rs.getString("lastName");
+                String firstName = rs.getString("firstname");
+                String extension = rs.getString("extension");
+                String email = rs.getString("email");
+                String officeCode =rs.getString("email");
+                int reportsTo = rs.getInt("reportTo");
+                String jobTitle = rs.getString("jobTitle");
+
+                Employee employee = new Employee(employeeNumber,lastName,firstName,
+                        extension,email,officeCode,reportsTo,jobTitle );
+
+            }
+
+        }catch (SQLException e) {
+            System.out.println("Exception occurred in the getAllOrders() method: " + e.getMessage());
+        }finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.out.println("Exception occurred in the finally section of the getAllOrders() method: " + e.getMessage());
+            }
+
+        }
+        return employees;
     }
 
     /**

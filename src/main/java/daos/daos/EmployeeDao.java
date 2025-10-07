@@ -10,7 +10,7 @@ public interface EmployeeDao {
     public boolean addEmployee(int employeeNumber, String lastName, String firstName,
                                String extension, String email, String officeCode,
                                int reportsTo, String jobTitle);
-
+    public List<Employee> getAllEmployees();
     public Employee getEmployeeByID(int employeeNumber);
 
     public Employee deleteEmployeeByID(int employeeNumber);
