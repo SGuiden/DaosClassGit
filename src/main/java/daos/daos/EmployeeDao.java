@@ -7,9 +7,7 @@ import java.util.List;
 public interface EmployeeDao {
 
     // Method to Add new employee detail to database
-    public boolean addEmployee(int employeeNumber, String lastName, String firstName,
-                               String extension, String email, String officeCode,
-                               int reportsTo, String jobTitle);
+    public boolean addEmployee(Employee e);
     public List<Employee> getAllEmployees();
     public Employee getEmployeeByID(int employeeNumber);
 
